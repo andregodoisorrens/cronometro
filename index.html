@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronometro</title>
+</head>
+<style>
+    *{
+        margin:0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body{
+        height: 100vh;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .container{
+        display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
+    h2{
+        padding: 1% 0;
+        margin-bottom: 5%;
+        font-size: 2em;
+    }
+    select{
+        width: 100%;
+        padding: 2%;
+        margin-bottom: 5%;
+        font-size: 1em;
+    }
+    button{
+        width: 100%;
+        margin-top: 5%;
+        padding: 8%;
+        font-size: 1.5em;
+        font-weight: bolder;
+        background: rgb(16 151 173);
+        border: 0;
+        border-radius: 2em;
+    }
+    .display{
+        font-size: 1.25em;
+        font-weight: bold;
+        margin-top: 20%;
+    }
+</style>
+<body>
+    <div class="container">
+        <h2>escolha os minutos:</h2>
+        <select id="min" name="min"></select>
+        <h2>escolha os segundo:</h2>
+        <select id="seg" name="seg"></select>
+        <br>
+        <button class="alarme">Definir alarme</button>
+        <div class="display">
+            <h3></h3>
+        </div>
+    </div>
+
+    <script>
+        var display = document.querySelector(".display");
+        var min = document.getElementById('min');
+        var seg = document.getElementById('seg');
+        const toque = new Audio("alarm.mp3");
+
+        var button = document.querySelector('.alarme');
+
+        for(var i = 0; i <= 60; i++){
+            min.innerHTML+="<option value='"+i+"' >" + i + "</option>";
+        }
+        for(var i = 1; i <= 60; i++){
+            seg.innerHTML+="<option value='"+i+"' >" + i + "</option>";
+        }
+
+        button.addEventListener('click', function(){
+            var minClock = min.value;
+            var segClock = seg.value;
+
+            display.childNodes[1].innerHTML = minClock + ':' + segClock;
+
+            interval = setInterval(function(){
+                segClock --
+                if(segClock <= 0){
+                    if(minClock > 0){
+                        minClock --;
+                        segClock = 59;
+                    }else{
+                        alert('Acabou o tempo!!!');
+                        toque.play();
+                        clearInterval(interval)
+                    }
+                }
+
+                display.childNodes[1].innerHTML = minClock + ':' + segClock;
+            },1000);
+
+        })
+
+
+    </script>
+</body>
+</html>
