@@ -1,2 +1,2 @@
 # cronometro
-Projeto desenvolvido durante o curso de front-emd da danki code, como exercicio.
+Projeto desenvolvido durante o curso de front-end da danki code, como exercicio.
